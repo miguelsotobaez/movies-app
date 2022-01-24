@@ -54,7 +54,7 @@ class App extends PureComponent {
     return (
       <div className="App">
         <div className="App-studios App-flex"> {
-          //TODO: 4 Categorize each image with a title and a description
+          //TODO: 4 Filter the movies by genre, price and title
         }
           <h3>Images:</h3>
           <Grid container justify="center" alignItems="center">
