@@ -13,5 +13,8 @@ The api folder contains a small express api
 7. (Optional) fix any vulnerabilities you find
 
 ## How you will do it?
-You need to complete all the items listed before and push the changes to a new branch. That branch must be named ``[NameSurname]`` 
+1. You need to fork the repo.
+2. You need to complete all the items listed before and push the changes to a new branch. That branch must be named ``[NameSurname]`` 
+3. Create a PR from your forked branch against this master.
+
 
