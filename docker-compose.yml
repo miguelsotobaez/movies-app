@@ -1,0 +1,35 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  api:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: nodemon --legacy-watch src/index.mjs
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./movies-app
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./movies-app:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - api
+    networks:
+      - app-network 

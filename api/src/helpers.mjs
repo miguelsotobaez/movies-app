@@ -25,23 +25,63 @@ export const getAllMoviesFromStudios = (studios) => {
 };
 
 export const movieConstructor = (movie, studio) => {
-  //Set url property to img
-  if (movie.url) {
-    Object.defineProperty(movie, 'img',
-      Object.getOwnPropertyDescriptor(movie, 'url'));
-    delete movie['url'];
-  }
-  //Map position id to string
-  else if (typeof movie.position === "number") {
-    movie['position'] = GENRE_STRING[movie.price];
-  }
-  //Add studioId from parent object
-  Object.defineProperty(movie, 'studioId',
-    Object.getOwnPropertyDescriptor(studio, 'id'));
-  //Remove non wanted properties
-  delete movie['price'];
-  delete movie['id'];
+  const constructedMovie = { ...movie }; // Create a copy to avoid modifying the original
 
-  return movie;
+  //Set url property to img
+  if (constructedMovie.url) {
+    constructedMovie.img = constructedMovie.url;
+    delete constructedMovie.url;
+  }
+  
+  //Map position id to string
+  if (typeof constructedMovie.position === "number") {
+    constructedMovie.position = GENRE_STRING[constructedMovie.price];
+  }
+  
+  //Add studioId from parent object
+  constructedMovie.studioId = studio.id;
+  
+  //Remove price but keep the id
+  delete constructedMovie.price;
+  
+  return constructedMovie;
 }
+
+export const transferMovieRights = (movieId, fromStudioId, toStudioId, studios) => {
+  console.log('Transfer request:', { movieId, fromStudioId, toStudioId });
+  console.log('Available studios:', studios.map(s => ({ id: s.id, name: s.name })));
+
+  // Find source and target studios
+  const fromStudio = studios.find(s => s.id === fromStudioId);
+  const toStudio = studios.find(s => s.id === toStudioId);
+
+  if (!fromStudio || !toStudio) {
+    console.error('Studio not found:', { fromStudio, toStudio });
+    throw new Error(`Studio not found: ${!fromStudio ? 'source' : 'target'} studio (${!fromStudio ? fromStudioId : toStudioId})`);
+  }
+
+  // Find the movie in the source studio
+  const movieIndex = fromStudio.movies.findIndex(m => m.id === movieId);
+  if (movieIndex === -1) {
+    console.error('Movie not found:', { movieId, studioMovies: fromStudio.movies });
+    throw new Error(`Movie ${movieId} not found in source studio ${fromStudio.name}`);
+  }
+
+  // Get the movie and remove it from source studio
+  const movie = fromStudio.movies[movieIndex];
+  fromStudio.movies.splice(movieIndex, 1);
+
+  // Add the movie to the target studio
+  toStudio.movies.push({...movie});
+
+  const result = {
+    success: true,
+    movie: movieConstructor({...movie}, toStudio),
+    fromStudio: fromStudio.name,
+    toStudio: toStudio.name
+  };
+
+  console.log('Transfer successful:', result);
+  return result;
+};
 

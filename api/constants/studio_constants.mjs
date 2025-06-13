@@ -1,4 +1,3 @@
-
 export const movieAge = [
   {
     movieId: '11',
@@ -67,36 +66,36 @@ export const disney = {
   id: '1',
   name: 'Disney studios',
   shortName: 'Disney',
-  logo: 'https://cdn.mos.cms.futurecdn.net/qfFFFhnM8LwZnjpTECN3oB.jpg',
+  logo: 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg',
   money: 1000,
   movies: [
     {
       id: '11',
       name: 'Nightmare before christmas',
       genre: GENRE_ID.horror,
-      img: 'https://www.dimanoinmano.it/img/638590/full/libri-per-ragazzi/infanzia/nightmare-before-christmas.jpg',
+      url: 'https://m.media-amazon.com/images/M/MV5BNWE4OTNiM2ItMjY4Ni00ZTViLWFiZmEtZGEyNGY2ZmNlMzIyXkEyXkFqcGdeQXVyMDU5NDcxNw@@._V1_.jpg',
       price: 600,
     },
     {
       id: '12',
       name: 'Aladdin',
       genre: GENRE_ID.animation,
-      url: 'https://www.lainformacion.com/files/article_default_content/uploads/2018/11/23/5bf84292d23b5.jpeg',
+      url: 'https://m.media-amazon.com/images/M/MV5BMmQwYWZjZGItYzc0OC00ZDllLTg3NjItOWIyOWYwMDljMjAyXkEyXkFqcGc@._V1_.jpg',
       price: 10000000000,
     },
     {
       id: '13',
       name: 'The avengers',
       genre: GENRE_ID.heroes,
-      url: 'https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/2b/The_Avengers_Poster.png/revision/latest?cb=20150610135853&path-prefix=es',
+      url: 'https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
       price: 300,
     },
     {
       id: '14',
       name: 'John Carter',
       genre: GENRE_ID.adventures,
-      url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/John_carter_poster.jpg/220px-John_carter_poster.jpg',
-      price: 400,
+      url: 'https://m.media-amazon.com/images/M/MV5BZWNmZGYzZjUtODRmOS00ODgzLWE4NWQtMDI3MGUwNjRjYjY0XkEyXkFqcGc@._V1_.jpg',
+      price: 300,
     },
   ]
 }
@@ -105,35 +104,35 @@ export const warner = {
   id: '2',
   name: 'Warner Bros.',
   shortName: 'Warner',
-  logo: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/12c6f684-d447-4457-84fa-12033cfd581e/d9z4nxu-626ae303-e830-4b4f-ab8b-4aff7f1bef0f.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzEyYzZmNjg0LWQ0NDctNDQ1Ny04NGZhLTEyMDMzY2ZkNTgxZVwvZDl6NG54dS02MjZhZTMwMy1lODMwLTRiNGYtYWI4Yi00YWZmN2YxYmVmMGYuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gtKaGVrDg8gzU7QFThusbHJw2d6bKgnDauezUcZo-1A',
+  logo: 'https://m.media-amazon.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTc2MTQxMw@@._V1_.jpg',
   money: 900,
   movies: [
     {
       id: '21',
       name: 'The conjuring',
       genre: GENRE_ID.horror,
-      img: 'https://m.media-amazon.com/images/M/MV5BMTM3NjA1NDMyMV5BMl5BanBnXkFtZTcwMDQzNDMzOQ@@._V1_.jpg',
+      url: 'https://m.media-amazon.com/images/M/MV5BMTM3NjA1NDMyMV5BMl5BanBnXkFtZTcwMDQzNDMzOQ@@._V1_.jpg',
       price: 1000000000,
     },
     {
       id: '22',
-      name: 'Space Jame',
+      name: 'Space Jam',
       genre: GENRE_ID.animation,
-      img: 'https://static.wikia.nocookie.net/warnerbros/images/d/d0/SpaceJam.jpg/revision/latest/scale-to-width-down/350?cb=20120727135751&path-prefix=es',
-      price: 500,
+      url: 'https://m.media-amazon.com/images/M/MV5BZGQ3ZDk0M2MtZDNmNi00OWE3LThiODUtMTU3NmVjMTA0ZGQyXkEyXkFqcGc@._V1_.jpg',
+      price: 300,
     },
     {
       id: '23',
       name: 'The dark knight rises',
       genre: GENRE_ID.heroes,
-      url: 'https://pics.filmaffinity.com/The_Dark_Knight_Rises-149544881-large.jpg',
+      url: 'https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_.jpg',
       price: 400,
     },
     {
       id: '24',
       name: 'Fantastic beasts and where to find them',
       genre: GENRE_ID.adventures,
-      img: 'https://i.pinimg.com/originals/11/95/b8/1195b802fe9108f0458830054ba1fd57.jpg',
+      url: 'https://m.media-amazon.com/images/M/MV5BMjMxOTM1OTI4MV5BMl5BanBnXkFtZTgwODE5OTYxMDI@._V1_.jpg',
       price: 500,
     },
   ]
@@ -143,43 +142,39 @@ export const sony = {
   id: '3',
   name: 'Sony Pictures',
   shortName: 'Sony',
-  logo: 'https://logoeps.com/wp-content/uploads/2013/05/sony-pictures-entertainment-vector-logo.png',
+  logo: 'https://m.media-amazon.com/images/M/MV5BYWQ5ZjgyMGItNDY0NS00MDYxLWI5ZDktMDJhZDFhNzQ5MjkyXkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_.jpg',
   money: 700,
   movies: [
     {
       id: '31',
       name: 'Slender man',
       genre: GENRE_ID.horror,
+      url: 'https://m.media-amazon.com/images/M/MV5BMjE0MzcwMDAyNl5BMl5BanBnXkFtZTgwMzc4ODg0NDM@._V1_.jpg',
       price: 700,
     },
     {
       id: '32',
       name: 'Spider-man into the spider-verse',
       genre: GENRE_ID.animation,
+      url: 'https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_.jpg',
       price: 450,
     },
     {
       id: '33',
       name: 'Spider-man',
       genre: GENRE_ID.heroes,
+      url: 'https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_.jpg',
       price: 500,
     },
     {
       id: '34',
       name: 'Last action hero',
       genre: GENRE_ID.adventures,
+      url: 'https://m.media-amazon.com/images/M/MV5BNjdhOGY1OTktYWJkZC00OGY5LWJhY2QtZmQzZDA2MzY5MmNmXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_.jpg',
       price: 10000000000000,
     },
   ]
 }
-
-export const sonyImages = {
-  31: 'https://m.media-amazon.com/images/M/MV5BMjE0MzcwMDAyNl5BMl5BanBnXkFtZTgwMzc4ODg0NDM@._V1_UY1200_CR90,0,630,1200_AL_.jpg',
-  32: 'https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_.jpg',
-  33: 'https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX1000_.jpg',
-  34: 'https://static.wikia.nocookie.net/ideas/images/0/0e/Last_action_hero_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20180121010346',
-}
-
 
 export const studiosMap = {
   1: disney,

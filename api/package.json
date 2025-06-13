@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-modules ./src/index.mjs"
+    "start": "node src/index.mjs",
+    "dev": "nodemon src/index.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -14,9 +15,7 @@
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
-  },
-  "devDependencies": {
+    "express": "^5.1.0",
     "nodemon": "^3.1.10"
   }
 }

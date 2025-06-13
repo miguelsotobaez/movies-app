@@ -1,91 +1,274 @@
-import './App.css'
-import React, {PureComponent} from 'react'
-import {Avatar, Card, Grid, Typography} from '@material-ui/core'
+import { useState, useEffect, useMemo } from 'react'
+import { 
+  Typography, 
+  Box, 
+  Grid, 
+  CircularProgress,
+  Chip,
+  Stack,
+  Snackbar,
+  Alert
+} from '@mui/material'
+import { StyledCard, StyledContainer, MovieImage, MovieContent } from './styles'
+import { fetchMovies, fetchStudios, transferMovie } from './services/api.js'
+import Filters from './components/Filters'
+import MovieCard from './components/MovieCard'
+import TransferDialog from './components/TransferDialog'
 
-//TODO: 2 Move these calls into a proper api layer
-const domain = 'http://localhost:3000'
-const defaultAvatar = 'https://image.shutterstock.com/image-vector/male-avatar-profile-picture-vector-600w-149083895.jpg'
+const GENRE_MAP = {
+  1: 'Heroes',
+  4: 'Animation',
+  6: 'Horror',
+  9: 'Adventures'
+};
 
-//TODO: 1 this is a really old class component refactor it into a modern functional component
-class App extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      studios: [],
-      movies: [],
-      avatarSize: 280,
-      cardStyle: 'regularCard'
-    }
-    this.responsiveStyle = this.responsiveStyle.bind(this);
-  }
+function App() {
+  const [movies, setMovies] = useState([])
+  const [studios, setStudios] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [filters, setFilters] = useState({
+    search: '',
+    genre: ''
+  });
 
-  componentDidMount() {
-    window.addEventListener('resize', this.responsiveStyle)
-    fetch(`${domain}/studios`)
-      .then(response => {
-        return response.json();
-      })
-      .then(studios => {
-        this.setState({studios})
+  // Transfer state
+  const [transferDialog, setTransferDialog] = useState({
+    open: false,
+    movie: null,
+    studio: null,
+    loading: false,
+    error: null
+  });
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [moviesData, studiosData] = await Promise.all([
+          fetchMovies(),
+          fetchStudios()
+        ]);
+        setMovies(moviesData);
+        setStudios(studiosData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredMovies = useMemo(() => {
+    return movies.filter(movie => {
+      // Filter by title
+      const matchesSearch = movie.name.toLowerCase().includes(filters.search.toLowerCase());
+      
+      // Filter by genre
+      const matchesGenre = !filters.genre || movie.genre === filters.genre;
+
+      return matchesSearch && matchesGenre;
+    });
+  }, [movies, filters]);
+
+  const handleTransferClick = (movie, studio) => {
+    console.log('Transfer clicked:', { movie, studio });
+    if (!movie || !studio) {
+      setNotification({
+        open: true,
+        message: 'Cannot transfer movie: Missing movie or studio information',
+        severity: 'error'
       });
-    fetch(`${domain}/movies`)
-      .then(response => {
-        return response.json();
-      })
-      .then(movies => {
-        this.setState({movies})
-      });
-  }
-
-  responsiveStyle() {
-    //TODO: produce a better resize strategy
-    if (window.innerWidth < 601) {
-      console.log(window.innerWidth)
-      this.setState({avatarSize: 60, cardStyle: 'smallCard'})
-    } else {
-      this.setState({avatarSize: 280, cardStyle: 'regularCard'})
+      return;
     }
-  }
+    setTransferDialog({
+      open: true,
+      movie,
+      studio,
+      loading: false,
+      error: null
+    });
+  };
 
+  const handleTransferClose = () => {
+    setTransferDialog(prev => ({
+      ...prev,
+      open: false,
+      error: null
+    }));
+  };
 
-  render() {
-    const {movies, studios, avatarSize} = this.state
+  const handleTransfer = async (movieId, fromStudioId, toStudioId) => {
+    console.log('Handling transfer:', { movieId, fromStudioId, toStudioId });
+    
+    // Validate required parameters
+    if (!movieId || !fromStudioId || !toStudioId) {
+      const error = 'Missing required transfer information';
+      console.error(error, { movieId, fromStudioId, toStudioId });
+      setTransferDialog(prev => ({
+        ...prev,
+        error,
+        loading: false
+      }));
+      return;
+    }
 
+    setTransferDialog(prev => ({ ...prev, loading: true, error: null }));
+    try {
+      await transferMovie(movieId, fromStudioId, toStudioId);
+      
+      // Refresh data after transfer
+      const [moviesData, studiosData] = await Promise.all([
+        fetchMovies(),
+        fetchStudios()
+      ]);
+      setMovies(moviesData);
+      setStudios(studiosData);
+
+      // Close dialog and show success notification
+      setTransferDialog(prev => ({ ...prev, open: false, loading: false }));
+      setNotification({
+        open: true,
+        message: 'Movie rights transferred successfully',
+        severity: 'success'
+      });
+    } catch (err) {
+      console.error('Transfer failed:', err);
+      setTransferDialog(prev => ({
+        ...prev,
+        loading: false,
+        error: err.message
+      }));
+    }
+  };
+
+  const handleNotificationClose = () => {
+    setNotification(prev => ({ ...prev, open: false }));
+  };
+
+  if (loading) {
     return (
-      <div className="App">
-        <div className="App-studios App-flex"> {
-          //TODO: 4 Filter the movies by genre, price and title
-        }
-          <h3>Images:</h3>
-          <Grid container justify="center" alignItems="center">
-            {movies.map(movie =>
-              //TODO: 3 move styles into a separate js file and export this class using withStyles or similar or just to css file
-              <Grid item xs={12} sm={6} lg={4}>
-                <Card className={this.state.cardStyle}>
-                  <Avatar alt={movie.name} src={movie.img ? movie.img : defaultAvatar}
-                          style={{margin: 5, width: avatarSize, height: avatarSize}}/>
-                  <div>
-                    <Typography style={{display: 'inline-block'}}>
-                      {movie.name + ' '}
-                      <Typography style={{fontWeight: 'bold', display: 'inline-block'}}>
-                        {movie.position}
-                      </Typography>
-                    </Typography>
-                  </div>
-                  <Typography>{
-                    // eslint-disable-next-line
-                    studios.map(studio => {
-                    if (movie.studioId === studio.id) {
-                      return studio.name
-                    }
-                  })}</Typography>
-                </Card>
-              </Grid>)}
-          </Grid>
-        </div>
-      </div>
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
     )
   }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <Typography color="error">{error}</Typography>
+      </Box>
+    );
+  }
+
+  const getStudioName = (studioId) => {
+    const studio = studios.find(s => s.id === studioId);
+    return studio ? studio.name : 'Unknown Studio';
+  };
+
+  const getStudioForMovie = (studioId) => {
+    return studios.find(s => s.id === studioId);
+  };
+
+  return (
+    <Box sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default' }}>
+      <StyledContainer maxWidth={false}>
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          align="center" 
+          gutterBottom
+          sx={{ 
+            fontWeight: 'bold',
+            color: 'primary.main',
+            mb: 4,
+            pt: 2
+          }}
+        >
+          Movies Collection
+        </Typography>
+
+        <Filters 
+          filters={filters}
+          onFiltersChange={setFilters}
+        />
+
+        {filteredMovies.length === 0 ? (
+          <Box display="flex" justifyContent="center" py={4}>
+            <Typography color="text.secondary">
+              No movies found matching your filters
+            </Typography>
+          </Box>
+        ) : (
+          <Grid 
+            container 
+            spacing={2}
+            justifyContent="center"
+            sx={{ 
+              width: '100%',
+              margin: '0 auto',
+              px: { xs: 1, sm: 2, md: 3 }
+            }}
+          >
+            {filteredMovies.map((movie) => (
+              <Grid 
+                key={movie.id}
+                sx={{
+                  width: {
+                    xs: '50%',    // 2 cards por fila en móvil
+                    sm: '33.33%', // 3 cards por fila en tablet
+                    md: '25%',    // 4 cards por fila en desktop pequeño
+                    lg: '20%',    // 5 cards por fila en desktop
+                    xl: '16.66%'  // 6 cards por fila en pantallas grandes
+                  },
+                  maxWidth: '220px'
+                }}
+              >
+                <MovieCard
+                  movie={movie}
+                  studio={getStudioForMovie(movie.studioId)}
+                  onTransferClick={handleTransferClick}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+
+        <TransferDialog
+          open={transferDialog.open}
+          onClose={handleTransferClose}
+          movie={transferDialog.movie}
+          studios={studios}
+          currentStudio={transferDialog.studio}
+          onTransfer={handleTransfer}
+          loading={transferDialog.loading}
+          error={transferDialog.error}
+        />
+
+        <Snackbar
+          open={notification.open}
+          autoHideDuration={6000}
+          onClose={handleNotificationClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert 
+            onClose={handleNotificationClose} 
+            severity={notification.severity}
+            variant="filled"
+          >
+            {notification.message}
+          </Alert>
+        </Snackbar>
+      </StyledContainer>
+    </Box>
+  )
 }
 
 export default App
