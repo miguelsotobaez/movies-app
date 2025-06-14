@@ -3,7 +3,7 @@ networks:
     driver: bridge
 
 services:
-  api:
+  backend:
     build: 
       context: ./api
       dockerfile: Dockerfile
@@ -23,13 +23,14 @@ services:
       context: ./movies-app
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "80:80"
     volumes:
       - ./movies-app:/app
       - /app/node_modules
     environment:
+      - VITE_API_URL=/api
       - NODE_ENV=development
     depends_on:
-      - api
+      - backend
     networks:
       - app-network 

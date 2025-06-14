@@ -1,13 +1,29 @@
-FROM node:22-alpine
+FROM node:22-alpine as build
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copiar archivos de dependencias
+COPY package.json package-lock.json ./
 
-RUN npm install
+# Instalar dependencias con --legacy-peer-deps para evitar problemas de compatibilidad
+RUN npm ci --legacy-peer-deps
 
+# Copiar el resto de archivos
 COPY . .
 
-EXPOSE 5173
+# Construir la aplicación para producción
+RUN npm run build
 
-CMD ["npm", "run", "dev"] 
+# Etapa de producción
+FROM nginx:alpine
+
+# Copiar los archivos de configuración de nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copiar los archivos estáticos de la etapa de construcción
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Exponer el puerto 80
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"] 

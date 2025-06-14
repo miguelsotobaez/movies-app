@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for API requests
-const BASE_URL = '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 // API endpoints
 export const API_ENDPOINTS = {
