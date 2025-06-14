@@ -109,6 +109,15 @@ All images are now sourced from IMDB's reliable media server (m.media-amazon.com
 
 ## 📝 Changes and Updates
 
+### Backend Test Implementation (Latest)
+- ✨ Added comprehensive backend test suite with Jest and Supertest
+- 📊 Achieved high backend test coverage (87.87% overall)
+- 🧪 Implemented tests for all backend API endpoints
+- ⚡ Added backend helper function unit tests
+- 🔍 Included edge case testing and error scenarios
+- 📝 Updated documentation with backend test coverage information
+- 🎯 Prepared structure for future frontend tests
+
 ### Environment Configuration
 - Added VITE_API_URL environment variable for flexible API endpoint configuration
 - Updated the API service layer to use the environment variable
@@ -121,6 +130,12 @@ All images are now sourced from IMDB's reliable media server (m.media-amazon.com
 - 🛠️ Configured Vite proxy settings for both development and production
 
 ## 🐛 Issues Faced and Solutions
+
+### Backend Test Implementation Challenges
+- **Issue**: Handling various data types in movieAge endpoint tests
+- **Solution**: Implemented flexible type checking to handle string, number, null, and undefined values
+- **Issue**: Setting up ES modules with Jest
+- **Solution**: Configured Jest to properly handle .mjs files and ES module imports
 
 ### API Configuration
 - **Issue**: Needed to expose the application to the internet while maintaining flexibility for local development
