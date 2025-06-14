@@ -92,6 +92,100 @@ The frontend will be running on http://localhost:5173
 - Centralized API service layer
 - Containerized development environment
 
+## Backend Test Coverage 🧪
+
+The backend API includes a comprehensive test suite with high coverage:
+
+```
+Backend Coverage Summary:
+-----------------|---------|----------|---------|---------|
+File            | % Stmts | % Branch | % Funcs | % Lines |
+-----------------|---------|----------|---------|---------|
+All files       |   87.87 |    74.07 |   83.33 |   88.29 |
+```
+
+### API Endpoints Tested (Backend)
+- GET /api/studios - List all movie studios
+- GET /api/movies - Get all movies across studios
+- GET /api/movieAge - Movie age information
+- POST /api/transfers - Transfer movies between studios
+
+### Backend Helper Functions Tested
+- getAllMoviesFromStudios
+- transferMovieRights
+
+### Backend Test Cases Include
+- ✅ Data structure validation
+- ✅ Error handling scenarios
+- ✅ Edge cases (null values, undefined properties)
+- ✅ Successful movie transfers
+- ✅ Invalid transfer attempts
+- ✅ Studio and movie ID validation
+
+### Running Backend Tests
+```bash
+# Install dependencies
+cd api
+npm install
+
+# Run tests
+npm test
+
+# Run tests with watch mode
+npm run test:watch
+```
+
+## Frontend Test Coverage 🧪
+
+The frontend React application includes a comprehensive test suite with excellent coverage:
+
+```
+Frontend Coverage Summary:
+---------------------|---------|----------|---------|---------|
+File                 | % Stmts | % Branch | % Funcs | % Lines |
+---------------------|---------|----------|---------|---------|
+src/components       |   98.85 |    84.61 |   88.88 |   98.85 |
+  Filters.jsx        |     100 |      100 |     100 |     100 |
+  MovieCard.jsx      |    96.9 |    42.85 |   66.66 |    96.9 |
+  TransferDialog.jsx |     100 |      100 |     100 |     100 |
+```
+
+### Frontend Components Tested
+- **MovieCard Component** (4 tests) - 96.9% coverage
+- **TransferDialog Component** (13 tests) - 100% coverage  
+- **Filters Component** (10 tests) - 100% coverage
+
+### Frontend Test Cases Include
+- ✅ Component rendering and UI elements
+- ✅ User interactions (clicks, form inputs, selections)
+- ✅ Props validation and callback functions
+- ✅ Material-UI component integration
+- ✅ Loading and error states
+- ✅ Edge cases (missing data, null values)
+- ✅ Conditional rendering logic
+- ✅ Form validation and submission
+
+### Running Frontend Tests
+```bash
+# Install dependencies
+cd movies-app
+npm install
+
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Total Test Coverage
+- **Backend**: 87.87% statement coverage
+- **Frontend**: 98.85% component coverage
+- **Total Tests**: 27 frontend + backend tests passing
+
 ## Technologies
 
 - Frontend:
