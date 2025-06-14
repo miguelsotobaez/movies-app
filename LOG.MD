@@ -1,3 +1,8 @@
+## 🌟 Latest Update: Live Demo Available!
+
+The application is now live at: https://movies.misoba.dev/ 
+Experience all features in our production environment!
+
 # Project Changes and Challenges Log
 
 ## Major Changes
@@ -98,4 +103,29 @@ All images are now sourced from IMDB's reliable media server (m.media-amazon.com
 - Consider implementing image fallbacks
 - Add image loading states
 - Implement image optimization
-- Consider using a CDN for media assets 
+- Consider using a CDN for media assets
+
+# Development Log
+
+## 📝 Changes and Updates
+
+### Environment Configuration
+- Added VITE_API_URL environment variable for flexible API endpoint configuration
+- Updated the API service layer to use the environment variable
+- Ensured proper fallback to local development URLs when needed
+
+### Deployment Updates
+- ✨ Successfully deployed the application to production
+- 🔧 Set up environment variables for production deployment
+- 📚 Updated project documentation
+- 🛠️ Configured Vite proxy settings for both development and production
+
+## 🐛 Issues Faced and Solutions
+
+### API Configuration
+- **Issue**: Needed to expose the application to the internet while maintaining flexibility for local development
+- **Solution**: Implemented environment variables (VITE_API_URL) and updated the Vite configuration to handle both scenarios
+
+### Proxy Configuration
+- **Issue**: Required different proxy settings for development and production environments
+- **Solution**: Updated vite.config.js to use environment variables for the API target, allowing seamless switching between environments 

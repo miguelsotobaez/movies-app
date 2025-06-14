@@ -1,3 +1,9 @@
+## Live Demo 🌐
+
+Check out the live demo of the application at: https://movies.misoba.dev/
+
+This live version showcases all the features of the application in a production environment.
+
 # Movies App
 
 A modern web application for managing movie studios and their movies. Built with React, Vite, Node.js, and Material UI.
@@ -13,7 +19,7 @@ The easiest way to run the application is using Docker Compose:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/miguelsotobaez/movies-app
 cd movies-app
 
 # Start both frontend and backend services
@@ -21,7 +27,7 @@ docker-compose up --build
 ```
 
 The application will be available at:
-- Frontend: http://localhost:5173
+- Frontend: http://localhost
 - API: http://localhost:3000
 
 ## Manual Setup (without Docker)
